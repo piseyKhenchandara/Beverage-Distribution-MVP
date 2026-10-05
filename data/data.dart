@@ -2,6 +2,8 @@
 import 'package:ecommerce_b2b/domain/depot.dart';
 import 'package:ecommerce_b2b/domain/depotManager.dart';
 import 'package:ecommerce_b2b/domain/depotOwner.dart';
+import 'package:ecommerce_b2b/domain/orderItem.dart';
+import 'package:ecommerce_b2b/domain/orderReq.dart';
 import 'package:ecommerce_b2b/domain/product.dart';
 import 'package:ecommerce_b2b/domain/productImage.dart';
 
@@ -57,6 +59,29 @@ class Data {
     Depot(id: "D013", name: "Takhmao South Depot",  location: "Takhmao South",    managerId: "MGR003"),
     Depot(id: "D014", name: "Kien Svay East Depot", location: "Kien Svay East",   managerId: "MGR004"),
     Depot(id: "D015", name: "Kandal Central Depot", location: "Kandal Central",   managerId: "MGR005"),
+  ];
+
+  static final List<OrderReq> orderReqs = [
+    OrderReq(id: "ORD001", depotId: "D001", status: OrderStatus.pending,   deliveryDate: DateTime(2026, 10, 5),  createdAt: DateTime(2026, 10, 1)),
+    OrderReq(id: "ORD002", depotId: "D002", status: OrderStatus.accepted,  deliveryDate: DateTime(2026, 10, 6),  createdAt: DateTime(2026, 10, 1)),
+    OrderReq(id: "ORD003", depotId: "D003", status: OrderStatus.rejected,  deliveryDate: DateTime(2026, 10, 7),  createdAt: DateTime(2026, 10, 2)),
+    OrderReq(id: "ORD004", depotId: "D004", status: OrderStatus.completed, deliveryDate: DateTime(2026, 10, 3),  createdAt: DateTime(2026, 9,  28)),
+    OrderReq(id: "ORD005", depotId: "D005", status: OrderStatus.cancelled, deliveryDate: DateTime(2026, 10, 2),  createdAt: DateTime(2026, 9,  27)),
+    OrderReq(id: "ORD006", depotId: "D001", status: OrderStatus.pending,   deliveryDate: DateTime(2026, 10, 10), createdAt: DateTime(2026, 10, 3)),
+    OrderReq(id: "ORD007", depotId: "D006", status: OrderStatus.accepted,  deliveryDate: DateTime(2026, 10, 8),  createdAt: DateTime(2026, 10, 3)),
+  ];
+
+  static final List<OrderItem> orderItems = [
+    OrderItem(id: "OI001", orderReqId: "ORD001", productId: "P001", quantity: 50),
+    OrderItem(id: "OI002", orderReqId: "ORD001", productId: "P002", quantity: 100),
+    OrderItem(id: "OI003", orderReqId: "ORD002", productId: "P003", quantity: 30),
+    OrderItem(id: "OI004", orderReqId: "ORD002", productId: "P004", quantity: 20),
+    OrderItem(id: "OI005", orderReqId: "ORD003", productId: "P001", quantity: 60),
+    OrderItem(id: "OI006", orderReqId: "ORD004", productId: "P005", quantity: 40),
+    OrderItem(id: "OI007", orderReqId: "ORD004", productId: "P002", quantity: 80),
+    OrderItem(id: "OI008", orderReqId: "ORD005", productId: "P003", quantity: 25),
+    OrderItem(id: "OI009", orderReqId: "ORD006", productId: "P001", quantity: 120),
+    OrderItem(id: "OI010", orderReqId: "ORD007", productId: "P004", quantity: 15),
   ];
 
 }
