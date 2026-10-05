@@ -11,6 +11,7 @@ import 'package:ecommerce_b2b/ui/widgets/depot/productOrderCard.dart';
 import 'package:ecommerce_b2b/ui/widgets/depot/summarySection.dart';
 import 'package:ecommerce_b2b/ui/widgets/showRoleMenu.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DepotScreen extends StatefulWidget {
   const DepotScreen({super.key});
@@ -20,16 +21,20 @@ class DepotScreen extends StatefulWidget {
 }
 
 class _DepotScreenState extends State<DepotScreen> {
-  late OrderService orderService;
+  late OrderService _orderService;
   late List<OrderItem> orderItems;
   late List<TextEditingController> controllers;
 
   @override
   void initState() {
     super.initState();
-    orderService = OrderService(orderRepository: OrderRepository());
-    orderItems = Data.products.map((p) => OrderItem(p.id, 0)).toList();
+
+    orderItems = Data.products
+        .map((p) => OrderItem(productId: p.id, quantity: 0))
+        .toList();
     controllers = Data.products.map((_) => TextEditingController()).toList();
+
+    _orderService = context.read<OrderService>();
   }
 
   @override
@@ -65,23 +70,28 @@ class _DepotScreenState extends State<DepotScreen> {
   }
 
   void confirmOrder() {
-    if (total == 0) return;
     final orderedTotal = total;
 
+    try {
+      _orderService.createOrder(
+        depotId: Data.depots.first.id,
+        items: orderItems,
+        deliveryDate: DateTime.now(),
+      );
+      setState(() {
+        orderItems = Data.products
+            .map((p) => OrderItem(productId: p.id, quantity: 0))
+            .toList();
+      });
+      _showSuccessDialog(orderedTotal);
 
-    orderService.createOrder(
-      depotId: Data.depots.first.id,
-      items: orderItems,
-      deliveryDate: DateTime.now(),
-    );
-
-    setState(() {
-      orderItems = Data.products.map((p) => OrderItem(p.id, 0)).toList();
-    });
-    _showSuccessDialog(orderedTotal);
-
-    for (final c in controllers) {
-      c.clear();
+      for (final c in controllers) {
+        c.clear();
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 
@@ -89,7 +99,6 @@ class _DepotScreenState extends State<DepotScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-       
         Data.depots.first.name,
         profile: "assets/profiles/depot_profile.png",
         onMenuPressed: () => showRoleMenu(context),
