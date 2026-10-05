@@ -8,8 +8,7 @@ class OrderReq {
   String? deliveryId;
   DateTime deliveryDate;
   OrderStatus status;
-
-  
+  final DateTime createdAt;
 
   OrderReq({
     required this.id,
@@ -17,7 +16,8 @@ class OrderReq {
     this.deliveryId,
     DateTime? deliveryDate,
     required this.status,
-    
-  }) : deliveryDate = deliveryDate ?? DateTime.now();
+    DateTime? createdAt,
+  })  : deliveryDate = deliveryDate ?? DateTime.now(),
+        createdAt = createdAt ?? DateTime.now();
 }
 
