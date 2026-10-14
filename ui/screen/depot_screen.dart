@@ -1,20 +1,22 @@
 import 'package:ecommerce_b2b/data/data.dart';
 import 'package:ecommerce_b2b/domain/depot.dart';
-import 'package:ecommerce_b2b/domain/orderItem.dart';
-import 'package:ecommerce_b2b/domain/orderReq.dart';
-import 'package:ecommerce_b2b/domain/productImage.dart';
-import 'package:ecommerce_b2b/repository/orderRepository.dart';
-import 'package:ecommerce_b2b/service/orderService.dart';
-import 'package:ecommerce_b2b/ui/widgets/customAppbar.dart';
+import 'package:ecommerce_b2b/domain/enum.dart';
+import 'package:ecommerce_b2b/domain/order_item.dart';
+import 'package:ecommerce_b2b/domain/order_req.dart';
+import 'package:ecommerce_b2b/domain/product_image.dart';
+import 'package:ecommerce_b2b/repository/order_repository.dart';
+import 'package:ecommerce_b2b/service/order_service.dart';
+import 'package:ecommerce_b2b/ui/widgets/custom_appbar.dart';
 
-import 'package:ecommerce_b2b/ui/widgets/depot/productOrderCard.dart';
-import 'package:ecommerce_b2b/ui/widgets/depot/summarySection.dart';
-import 'package:ecommerce_b2b/ui/widgets/showRoleMenu.dart';
+import 'package:ecommerce_b2b/ui/widgets/depot/product_order_card.dart';
+import 'package:ecommerce_b2b/ui/widgets/depot/summary_section.dart';
+import 'package:ecommerce_b2b/ui/widgets/show_role_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DepotScreen extends StatefulWidget {
-  const DepotScreen({super.key});
+  final String depotId;
+  const DepotScreen({super.key, required this.depotId});
 
   @override
   State<DepotScreen> createState() => _DepotScreenState();
@@ -105,6 +107,34 @@ class _DepotScreenState extends State<DepotScreen> {
       ),
       body: Column(
         children: [
+          Consumer<OrderService>(
+            builder: (context, orderService, _) {
+              final orders = orderService.getOrders()
+                  .where((o) => o.depotId == Data.depots.first.id)
+                  .toList();
+              if (orders.isEmpty) return const SizedBox();
+              final latest = orders.last;
+              return Padding(
+                padding: const EdgeInsets.all(8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text("Latest order:"),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.red, width: 2),
+                        color: latest.status.color,
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      
+                      child: latest.status == OrderStatus.assigned ? Text(DeliveryStatus.delivering.name) : Text(latest.status.label),
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
           Expanded(
             child: ListView.builder(
               itemCount: Data.products.length,
@@ -118,6 +148,7 @@ class _DepotScreenState extends State<DepotScreen> {
                     horizontal: 12,
                     vertical: 6,
                   ),
+                  
                   child: Padding(
                     padding: const EdgeInsets.all(8),
                     child: ProductOrderCard(

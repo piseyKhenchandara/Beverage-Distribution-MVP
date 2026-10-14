@@ -1,11 +1,13 @@
 
 import 'package:ecommerce_b2b/domain/depot.dart';
-import 'package:ecommerce_b2b/domain/depotManager.dart';
-import 'package:ecommerce_b2b/domain/depotOwner.dart';
-import 'package:ecommerce_b2b/domain/orderItem.dart';
-import 'package:ecommerce_b2b/domain/orderReq.dart';
+import 'package:ecommerce_b2b/domain/depot_manager.dart';
+import 'package:ecommerce_b2b/domain/depot_owner.dart';
+import 'package:ecommerce_b2b/domain/enum.dart';
+import 'package:ecommerce_b2b/domain/order_item.dart';
+import 'package:ecommerce_b2b/domain/order_req.dart';
+import 'package:ecommerce_b2b/domain/driver.dart';
 import 'package:ecommerce_b2b/domain/product.dart';
-import 'package:ecommerce_b2b/domain/productImage.dart';
+import 'package:ecommerce_b2b/domain/product_image.dart';
 
 class Data {
 
@@ -28,7 +30,7 @@ class Data {
   ];
 
   static final List<DepotManager> managers = [
-    DepotManager(id: "MGR001", phone: "012345678", name: "Sokha",   isActive: true, createdAt: DateTime(2024, 1, 1)),
+    DepotManager(id: "MGR001", phone: "012345678", name: "Sokha Depot Manager",   isActive: true, createdAt: DateTime(2024, 1, 1)),
     DepotManager(id: "MGR002", phone: "012345679", name: "Dara",    isActive: true, createdAt: DateTime(2024, 1, 5)),
     DepotManager(id: "MGR003", phone: "012345680", name: "Bopha",   isActive: true, createdAt: DateTime(2024, 2, 1)),
     DepotManager(id: "MGR004", phone: "012345681", name: "Chantrea", isActive: true, createdAt: DateTime(2024, 3, 1)),
@@ -41,6 +43,16 @@ class Data {
     DepotOwner(depotId: "D003", id: "OWN003", phone: "010123458", name: "Pich",    isActive: true, createdAt: DateTime(2023, 7, 1)),
     DepotOwner(depotId: "D004", id: "OWN004", phone: "010123459", name: "Nimol",   isActive: true, createdAt: DateTime(2023, 8, 1)),
     DepotOwner(depotId: "D005", id: "OWN005", phone: "010123460", name: "Kunthea", isActive: true, createdAt: DateTime(2023, 9, 1)),
+    DepotOwner(depotId: "D006", id: "OWN006", phone: "010123461", name: "Ratha",   isActive: true, createdAt: DateTime(2023, 9, 15)),
+    DepotOwner(depotId: "D007", id: "OWN007", phone: "010123462", name: "Sreymom", isActive: true, createdAt: DateTime(2023, 10, 1)),
+    DepotOwner(depotId: "D008", id: "OWN008", phone: "010123463", name: "Kosal",   isActive: true, createdAt: DateTime(2023, 10, 15)),
+    DepotOwner(depotId: "D009", id: "OWN009", phone: "010123464", name: "Channary",isActive: true, createdAt: DateTime(2023, 11, 1)),
+    DepotOwner(depotId: "D010", id: "OWN010", phone: "010123465", name: "Virak",   isActive: true, createdAt: DateTime(2023, 11, 15)),
+    DepotOwner(depotId: "D011", id: "OWN011", phone: "010123466", name: "Sokly",   isActive: true, createdAt: DateTime(2023, 12, 1)),
+    DepotOwner(depotId: "D012", id: "OWN012", phone: "010123467", name: "Davan",   isActive: true, createdAt: DateTime(2023, 12, 15)),
+    DepotOwner(depotId: "D013", id: "OWN013", phone: "010123468", name: "Malis",   isActive: true, createdAt: DateTime(2024, 1, 1)),
+    DepotOwner(depotId: "D014", id: "OWN014", phone: "010123469", name: "Pisey",   isActive: true, createdAt: DateTime(2024, 1, 15)),
+    DepotOwner(depotId: "D015", id: "OWN015", phone: "010123470", name: "Borey",   isActive: true, createdAt: DateTime(2024, 2, 1)),
   ];
 
   static final List<Depot> depots = [
@@ -61,14 +73,23 @@ class Data {
     Depot(id: "D015", name: "Kandal Central Depot", location: "Kandal Central",   managerId: "MGR005"),
   ];
 
+  static final List<Driver> drivers = [
+    Driver(carPlateNumber: "KDL-001", depotId: "D001", managerId: "MGR001", id: "DRV001", phone: "0971111001", name: "Sokun Driver",  isActive: true, createdAt: DateTime(2024, 1, 1),  lastLogin: DateTime(2026, 10, 1)),
+    Driver(carPlateNumber: "KDL-002", depotId: "D001", managerId: "MGR001", id: "DRV002", phone: "0971111002", name: "Nara",   isActive: true, createdAt: DateTime(2024, 2, 1),  lastLogin: DateTime(2026, 9, 28)),
+    Driver(carPlateNumber: "KDL-003", depotId: "D001", managerId: "MGR001", id: "DRV003", phone: "0971111003", name: "Vibol",  isActive: true, createdAt: DateTime(2024, 3, 1),  lastLogin: DateTime(2026, 9, 30)),
+    Driver(carPlateNumber: "KDL-004", depotId: "D002", managerId: "MGR001", id: "DRV004", phone: "0971111004", name: "Chhun",  isActive: true, createdAt: DateTime(2024, 3, 15), lastLogin: DateTime(2026, 10, 2)),
+    Driver(carPlateNumber: "KDL-005", depotId: "D002", managerId: "MGR001", id: "DRV005", phone: "0971111005", name: "Sreynich",isActive: true, createdAt: DateTime(2024, 4, 1), lastLogin: DateTime(2026, 9, 25)),
+    Driver(carPlateNumber: "KDL-006", depotId: "D006", managerId: "MGR001", id: "DRV006", phone: "0971111006", name: "Pho",    isActive: true, createdAt: DateTime(2024, 5, 1),  lastLogin: DateTime(2026, 10, 3)),
+  ];
+
   static final List<OrderReq> orderReqs = [
-    OrderReq(id: "ORD001", depotId: "D001", status: OrderStatus.pending,   deliveryDate: DateTime(2026, 10, 5),  createdAt: DateTime(2026, 10, 1)),
-    OrderReq(id: "ORD002", depotId: "D002", status: OrderStatus.accepted,  deliveryDate: DateTime(2026, 10, 6),  createdAt: DateTime(2026, 10, 1)),
-    OrderReq(id: "ORD003", depotId: "D003", status: OrderStatus.rejected,  deliveryDate: DateTime(2026, 10, 7),  createdAt: DateTime(2026, 10, 2)),
-    OrderReq(id: "ORD004", depotId: "D004", status: OrderStatus.completed, deliveryDate: DateTime(2026, 10, 3),  createdAt: DateTime(2026, 9,  28)),
-    OrderReq(id: "ORD005", depotId: "D005", status: OrderStatus.cancelled, deliveryDate: DateTime(2026, 10, 2),  createdAt: DateTime(2026, 9,  27)),
-    OrderReq(id: "ORD006", depotId: "D001", status: OrderStatus.pending,   deliveryDate: DateTime(2026, 10, 10), createdAt: DateTime(2026, 10, 3)),
-    OrderReq(id: "ORD007", depotId: "D006", status: OrderStatus.accepted,  deliveryDate: DateTime(2026, 10, 8),  createdAt: DateTime(2026, 10, 3)),
+    OrderReq(id: "ORD001", depotId: "D001", status: OrderStatus.pending,   deliveryDate: DateTime(2026, 10, 5),  createdAt: DateTime(2026, 9, 29)),
+  
+    OrderReq(id: "ORD003", depotId: "D003", status: OrderStatus.rejected,  deliveryDate: DateTime(2026, 10, 7),  createdAt: DateTime(2026, 9, 30)),
+    OrderReq(id: "ORD004", depotId: "D004", status: OrderStatus.completed, deliveryDate: DateTime(2026, 10, 3),  createdAt: DateTime(2026, 10,  12)),
+    OrderReq(id: "ORD005", depotId: "D005", status: OrderStatus.cancelled, deliveryDate: DateTime(2026, 10, 2),  createdAt: DateTime(2026, 10,  14)),
+    OrderReq(id: "ORD006", depotId: "D001", status: OrderStatus.pending,   deliveryDate: DateTime(2026, 10, 10), createdAt: DateTime(2026, 10, 15)),
+
   ];
 
   static final List<OrderItem> orderItems = [
