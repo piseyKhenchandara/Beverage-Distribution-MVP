@@ -1,4 +1,4 @@
-import 'package:ecommerce_b2b/domain/depotOwner.dart';
+import 'package:ecommerce_b2b/domain/depot_owner.dart';
 import 'package:ecommerce_b2b/repository/depot_owner_repository.dart';
 
 class DepotOwnerService {

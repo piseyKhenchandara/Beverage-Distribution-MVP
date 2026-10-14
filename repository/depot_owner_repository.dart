@@ -1,4 +1,4 @@
-import 'package:ecommerce_b2b/domain/depotOwner.dart';
+import 'package:ecommerce_b2b/domain/depot_owner.dart';
 
 class DepotOwnerRepository {
   final List<DepotOwner> _owners = [];
